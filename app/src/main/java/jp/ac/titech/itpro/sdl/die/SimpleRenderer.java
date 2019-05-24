@@ -3,6 +3,7 @@ package jp.ac.titech.itpro.sdl.die;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -13,8 +14,12 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
     private Obj obj;
     private float x, y, z;     // object position
     private float rx, ry, rz;  // object rotation
+    public SeekBar seekBarX;
 
     SimpleRenderer() {}
+
+
+
 
     void setObj(Obj obj, float x, float y, float z) {
         this.obj = obj;
@@ -50,16 +55,20 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
         gl.glTranslatef(x, y, z);
+        Log.d(TAG,"rx="+ rx);
+        rx++;
+        rx%=360;
+        seekBarX.setProgress((int) rx);
         gl.glRotatef(rx, 1, 0, 0);
         gl.glRotatef(ry, 0, 1, 0);
         gl.glRotatef(rz, 0, 0, 1);
         gl.glScalef(1, 1, 1);
         obj.draw(gl);
     }
+
 
     void rotateObjX(float th) {
         rx = th;

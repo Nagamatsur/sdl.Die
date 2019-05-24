@@ -1,5 +1,6 @@
 package jp.ac.titech.itpro.sdl.die;
 
+
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         seekBarZ.setOnSeekBarChangeListener(this);
 
         renderer = new SimpleRenderer();
+        renderer.seekBarX=seekBarX;
         cube = new Cube();
         pyramid = new Pyramid();
         renderer.setObj(cube);
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
         switch (seekBar.getId()) {
         case R.id.seekbar_x:
             renderer.rotateObjX(progress);
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             break;
         }
     }
+
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
